@@ -1,11 +1,8 @@
 from functools import reduce, lru_cache
 
-class MathError(Exception):
-    pass
-
 def factors(n):
     """
-    Returns the factors of number n.
+    Returns the factors of the number n.
 
     Args:
         n (int): Number to be factored.
@@ -17,30 +14,30 @@ def factors(n):
     return set(reduce(list.__add__,
                 ([i, n//i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
 
-@lru_cache(None)
-def factorial(n):
+def is_prime(n):
     """
-    Returns the factorial of non-negative integer n.
+    Check whether a number n is prime.
 
     Args:
         n (int): Non-negative integer.
 
-    Raises:
-        MathError: Non-integer or negative number is given.
+    Returns:
+        bool: True if n is prime else False.
+    """
+    return len(factors(n)) == 2
+
+def prime_factors(n):
+    """
+    Return the prime factors of the number n.
+
+    Args:
+        n (int): Non-negative integer.
 
     Returns:
-        int: Factorial of n.
+        set: Prime factors of number n.
 
     """
-    if type(n) is not int:
-        raise MathError('Unable to handle input other than int.')
-    if n < 0:
-        raise MathError('Unable to handle negative number as input.')
-
-    if n == 0 or n == 1:
-        return 1
-    else:
-        return n * factorial(n-1)
+    return set(filter(is_prime, factors(n)))
 
 @lru_cache(None)
 def fibo(n):
@@ -52,7 +49,7 @@ def fibo(n):
         n (int): Non-negative integer.
 
     Raises:
-        MathError: Non-integer or negative number is given.
+        ValueError: Non-integer or negative number is given.
 
     Returns:
         int: n-th term of the Fibonacci sequence.
@@ -60,9 +57,9 @@ def fibo(n):
     """
 
     if type(n) is not int:
-        raise MathError('Unable to handle input other than int.')
+        raise ValueError('Unable to handle input other than int.')
     if n < 0:
-        raise MathError('Unable to handle negative number as input.')
+        raise ValueError('Unable to handle negative number as input.')
 
     if n == 0:
         return 0
