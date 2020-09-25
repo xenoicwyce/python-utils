@@ -40,7 +40,7 @@ def prime_factors(n):
     return set(filter(is_prime, factors(n)))
 
 @lru_cache(None)
-def fibo(n):
+def fib(n):
     """
     Return the n-th term of the Fibonacci sequence, starting with 1 as the
     first term. Return 0 if 0 is given.
@@ -55,7 +55,6 @@ def fibo(n):
         int: n-th term of the Fibonacci sequence.
 
     """
-
     if type(n) is not int:
         raise ValueError('Unable to handle input other than int.')
     if n < 0:
@@ -66,4 +65,4 @@ def fibo(n):
     elif n == 1:
         return 1
     else:
-        return fibo(n-1) + fibo(n-2)
+        return fib(n-1) + fib(n-2)
